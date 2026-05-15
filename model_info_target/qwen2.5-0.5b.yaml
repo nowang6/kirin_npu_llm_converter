@@ -1,0 +1,48 @@
+# 导出工程配置yaml，可以根据项目需求进行修改
+embedding_config:
+  embedding_separate: True
+# embedding_as_fp16: False 时，embedding 输出用的是 int8， 反之用的是 fp32
+  embedding_as_fp16: False
+# 若推理端实现是「只乘一次 scale」→ 导出时设 mul_twice: False
+# 若推理端实现是「乘两次 scale（即读的是 √scale）」→ 导出时设 mul_twice: True。
+  mul_twice: False
+
+# 避免导出/推理端使用 GEMM 算子，把模型中所有 nn.Linear 换成「matmul + bias」实现
+no_gemm: True
+mock_as_s16: False
+output_pos:
+
+model_arch: qwen2 #可选择qwen2/qwen3/zhipu
+
+# 根据实际环境修改路径
+# 原始模型路径
+hf_model_path: models/Qwen2.5-0.5B-Instruct
+# 量化配置文件路径
+config_file: dopt_conf/qwen2.5-0.5b.json
+# 量化文件fake_quant_weight.pth所在的路径
+quant_pth: dopt_out/fake_quant_weight.pth
+
+run_mode: hardware
+
+# 根据实际环境修改路径
+dump_path: dump
+output_dir: onnx
+
+lora:
+  enable: False
+  megatron: False
+  lora_scale: 4
+
+  lora_config:
+  lora_ckpt:
+
+hf_model_device: "cpu"
+hf_model_device: "torch.float32"
+onnx_output_model_name: "model"
+onnx_opset: 12
+batch: 1
+kv_cache_max_len: 2048
+
+layers: 24
+seq_len:
+  - 64

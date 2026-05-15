@@ -1,0 +1,59 @@
+import os
+import sys
+import torch
+from transformers import AutoModelForCausalLM, AutoTokenizer
+
+# 填写DDK_tools工具包中tools_dopt/dopt_pytorch_py3的真实路径
+sys.path.append('/home/niwang/code/kirin_npu_qwen3/ddk/tools_dopt/dopt_pytorch_py3')
+os.environ["CUDA_VISIBLE_DEVICES"] = "0"
+
+
+def get_quanted_model(base_model, dopt_config, quanted_ckpt):
+    from dopt.dopt_lm.opt_main import (optimize_model, set_quant_state, set_calibrate_state, set_run_mode,)
+    model = optimize_model(base_model, dopt_config)
+    model.load_state_dict(torch.load(quanted_ckpt, map_location=torch.device('cpu')), strict=True)
+    set_quant_state(model, weight_state=True, input_state=True)
+    set_calibrate_state(model, False)
+    model.eval()
+    return model
+
+
+def generate(prompt="Give me a short introduction to large language model."):
+    messages = [
+        {"role": "system", "content": "You are Qwen, created by Alibaba Cloud. You are a helpful assistant"},
+        {"role": "user", "content": prompt}
+    ]
+
+    text = tokenizer.apply_chat_template(messages, tokenize=False, add_generation_prompt=True)
+    model_inputs = tokenizer([text], return_tensors="pt").to(model.device)
+    print(model_inputs)
+    generated_ids = model.generate(**model_inputs, max_new_tokens=512)
+    generated_ids = [
+        output_ids[len(input_ids):] for input_ids, output_ids in zip(model_inputs.input_ids, generated_ids)
+    ]
+    response = tokenizer.batch_decode(generated_ids, skip_special_tokens=True)[0]
+    return response
+
+
+if __name__ == '__main__':
+    # 填写源模型的真实路径
+    model_name = "models/Qwen3-0.6B"
+    model = AutoModelForCausalLM.from_pretrained(
+        model_name,
+        torch_dtype=torch.float16,
+        device_map="auto"
+    )
+    tokenizer = AutoTokenizer.from_pretrained(model_name)
+    quant_res_root = 'output_dir'
+    # 量化配置
+    dopt_config = f"/{quant_res_root}/dopt_config.json"
+    # 量化权重
+    quanted_ckpt = f"/{quant_res_root}/train_output/trained.pth"
+    model = get_quanted_model(
+        model,
+        dopt_config,
+        quanted_ckpt
+    )
+    prompt = "who are you?"
+    response = generate(prompt)
+    print(response)
