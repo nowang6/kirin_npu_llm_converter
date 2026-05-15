@@ -2,7 +2,7 @@
     "version": 1,
     "engine_type": "autoregressive",
     "llm_config" : {
-        "bos_token_id": 151645,
+        "bos_token_id": 151643,
         "eos_token_id": 151645,
         "kv_cache_max_len": 2048,
         "sliding_window_len": 0,
