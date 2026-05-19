@@ -13,10 +13,10 @@ def parse_args():
     parser = argparse.ArgumentParser()
     parser.add_argument(
         "--model-path",
-        type=str, default="models/Qwen2.5-0.5B-Instruct", help="model name"
+        type=str, default="/data/models/Qwen2.5-1.5B-Instruct", help="model name"
     )
     parser.add_argument(
-        "--dopt-config", type=str, default="dopt_conf/qwen2.5-0.5b.json"
+        "--dopt-config", type=str, default="dopt_conf/qwen2.5-1.5b.json"
     )
     parser.add_argument(
         "--optimize-config", type=str, default="optimize-config.yaml"

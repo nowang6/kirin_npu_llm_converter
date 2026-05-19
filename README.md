@@ -98,7 +98,7 @@ python src/qwen_onnx_test.py --prompt "who are you?" --max-new-tokens 50
 
 # 转换为om
 ```sh
-omc_sh/qwen25_0.5b.sh
+omc_sh/qwen25_1.5b.sh
 ```
 
 # 部署

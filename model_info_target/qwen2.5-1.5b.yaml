@@ -12,9 +12,9 @@ model_arch: qwen2 #可选择qwen2/qwen3/zhipu
 
 # 根据实际环境修改路径
 # 原始模型路径
-hf_model_path: models/Qwen2.5-1.5B-Instruct
+hf_model_path: /data/models/Qwen2.5-1.5B-Instruct
 # 量化配置文件路径
-config_file: qwen2.5-1.5b-dopt.json
+config_file: dopt_conf/qwen2.5-1.5b.json
 # 量化文件fake_quant_weight.pth所在的路径
 quant_pth: dopt_out/fake_quant_weight.pth
 

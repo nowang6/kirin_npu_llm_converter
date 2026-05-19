@@ -214,7 +214,7 @@ def export_model(
 if __name__ == "__main__":
 
     # info_path内填写model_info_target.yaml实际路径
-    info_path = "model_info_target/qwen2.5-0.5b.yaml"
+    info_path = "model_info_target/qwen2.5-1.5b.yaml"
     if len(sys.argv) > 1: info_path = sys.argv[1]
     import yaml
 
