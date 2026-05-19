@@ -32,6 +32,6 @@ cutoff_len: 128
 num_samples: 256
 # True: Kirin 9020
 # False: Kirin X90
-quant_param_2: True
+quant_param_2: False
 embedding_separate: True
 lm_head_size: 896
