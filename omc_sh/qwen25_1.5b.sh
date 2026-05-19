@@ -6,5 +6,5 @@
 --output_type="lm_logits:FP32;past_key0:FP16;past_value0:FP16;past_key1:FP16;past_value1:FP16;past_key2:FP16;past_value2:FP16;past_key3:FP16;past_value3:FP16;past_key4:FP16;past_value4:FP16;past_key5:FP16;past_value5:FP16;past_key6:FP16;past_value6:FP16;past_key7:FP16;past_value7:FP16;past_key8:FP16;past_value8:FP16;past_key9:FP16;past_value9:FP16;past_key10:FP16;past_value10:FP16;past_key11:FP16;past_value11:FP16;past_key12:FP16;past_value12:FP16;past_key13:FP16;past_value13:FP16;past_key14:FP16;past_value14:FP16;past_key15:FP16;past_value15:FP16;past_key16:FP16;past_value16:FP16;past_key17:FP16;past_value17:FP16;past_key18:FP16;past_value18:FP16;past_key19:FP16;past_value19:FP16;past_key20:FP16;past_value20:FP16;past_key21:FP16;past_value21:FP16;past_key22:FP16;past_value22:FP16;past_key23:FP16;past_value23:FP16;past_key24:FP16;past_value24:FP16;past_key25:FP16;past_value25:FP16;past_key26:FP16;past_value26:FP16;past_key27:FP16;past_value27:FP16"  \
 --compress_conf dopt_out/quant_params_file  \
 --save_weights_as_external_data=true \
---platform=kirinx90 \
+--platform=kirin9020 \
 --target=omc
